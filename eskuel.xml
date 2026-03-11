@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<game>
+    <head>
+        <title>T05</title>
+        <teaser>People are Missing after a plane crash</teaser>
+        <copyright>&#xA9; Emanuel Foster, Nathan Massicot, Jahnavi Patil, Nils Wildhaber, Leandra Willi</copyright>
+    </head>
+    <scenes>
+        <text-scene>
+            <text>Szene 1</text>
+        </text-scene>
+    </scenes>
+    
+</game>
