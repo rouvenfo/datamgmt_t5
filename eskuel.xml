@@ -1,77 +1,161 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <game>
     <head>
-        <title>T05</title>
-        <teaser>People are Missing after a plane crash</teaser>
-        <copyright>&#xA9; Emanuel Foster, Nathan Massicot, Jahnavi Patil, Nils Wildhaber, Leandra Willi</copyright>
+        <title>Antijoins Team 05</title>
+        <teaser></teaser>
+        <copyright>Team 05</copyright>
     </head>
     <scenes>
         <text-scene>
-            <text>Szene 1</text>
+            <text>After you escaped from the island you were stranded on last week. You decide that you want to visit the friends you made along the way while escaping.
+At the gate the flight attendant tells you that they want to start boarding but the terminal gives error message, passenger count incomplete.</text>
+        </text-scene>
+        <manipulate-scene>
+            <text>It is the first day of work for the flight attendant and they ask you to help them with the terminal. First we want to see which passengers are registered for the flight.</text>
+            <sql-solution>SELECT * FROM passengers;</sql-solution>
+            <sql-check>SELECT * FROM passengers;</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <manipulate-scene>
+            <text>So now we you have to check which passenger have actually already checked in:</text>
+            <sql-solution></sql-solution>
+            <sql-check>SELECT p.passenger_id, p.name
+FROM passengers p
+JOIN check_ins c
+ON p.passenger_id = c.passenger_id;</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <manipulate-scene>
+            <text>However, now we need to find the others who are not checked in. (Use and LEFT JOIN with IS NULL)</text>
+            <sql-solution>SELECT p.passenger_id, p.name
+FROM passengers p
+LEFT JOIN check_ins c
+ON p.passenger_id = c.passenger_id
+WHERE c.passenger_id IS N</sql-solution>
+            <sql-check>SELECT p.passenger_id, p.name
+FROM passengers p
+LEFT JOIN check_ins c
+ON p.passenger_id = c.passenger_id
+WHERE c.passenger_id IS NULL;</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <manipulate-scene>
+            <text>The flight attendant tells you that a lot of people arrive at the airport by bus, so you should check the bus station out.
+You arrive at the bus station and find a lot of people waiting for the bus. But you have no idea which of the waiting people is the missing passenger.
+Maybe you can find out who the missing person is by comparing the waiting persons with the passengers and check their location at the bus station.</text>
+            <sql-solution></sql-solution>
+            <sql-check>SELECT p.passenger_id, p.name, b.location
+FROM passengers p
+JOIN bus_station b
+ON p.name = b.name;</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <manipulate-scene>
+            <text>Nice! You found the missing passenger. He is standing under the street light. The missing passengers tells you that they have decided to take the bus instead of the flight to the island vacation. So now you can remove them from the passenger list.</text>
+            <sql-solution></sql-solution>
+            <sql-check>DELETE FROM passengers
+WHERE name IN (
+SELECT b.name
+FROM bus_station b
+);</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <manipulate-scene>
+            <text>Suddenly, you realize you are missing your pilot sunglasses, you must have left them at the gate. You see several sunglasses lying on the table. Check which of the sunglasses have no owner, these must belong to you. (Use NOT EXISTS)</text>
+            <sql-solution>SELECT s.sunglasses
+FROM sunglasses s
+WHERE NOT EXISTS (
+SELECT *
+FROM passengers p
+WHERE p.passenger_id = s.passenger_id
+);</sql-solution>
+            <sql-check>SELECT s.sunglasses
+FROM sunglasses s
+WHERE NOT EXISTS (
+SELECT *
+FROM passengers p
+WHERE p.passenger_id = s.passenger_id
+);</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <manipulate-scene>
+            <text>You finally board the plane and you realize you lost your ticket and you do not know you seat. But you want to sit at the window so you only want to sit on a window seat. Check which seat has not been assigned to any passenger and is located next to the window. (Use JOIN with NOT IN)</text>
+            <sql-solution>SELECT s.seat_number
+FROM seats s
+WHERE s.seat_number NOT IN (
+SELECT c.seat_number
+FROM check_ins c
+)
+AND s.position =</sql-solution>
+            <sql-check>SELECT s.seat_number
+FROM seats s
+WHERE s.seat_number NOT IN (
+SELECT c.seat_number
+FROM check_ins c
+)
+AND s.position = &#x2018;window&#x2019;;</sql-check>
+            <sql-placeholder></sql-placeholder>
+        </manipulate-scene>
+        <text-scene>
+            <text>So now you can finally take off and you are looking forward to your vacation.
+
+</text>
         </text-scene>
     </scenes>
-    <initial-sql-script>CREATE TYPE inhabitant_state AS ENUM (&#x27;friendly&#x27;, &#x27;evil&#x27;, &#x27;kidnapped&#x27;, &#x27;emigrated&#x27;, &#x27;?&#x27;);
-CREATE TYPE inhabitant_gender AS ENUM (&#x27;m&#x27;, &#x27;f&#x27;, &#x27;d&#x27;, &#x27;?&#x27;);
-
-CREATE TABLE Village (
-    villageid SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    chief INTEGER NOT NULL
+    <initial-sql-script>CREATE TABLE passengers (
+  passenger_id INT,
+  name VARCHAR(100),
+  passport_no VARCHAR(50),
+  nationality VARCHAR(50)
 );
+INSERT INTO passengers VALUES (1, &#x27;Alice Anson&#x27;, &#x27;P123456&#x27;, &#x27;USA&#x27;);
+INSERT INTO passengers VALUES (2, &#x27;Bob Bently&#x27;, &#x27;P789012&#x27;, &#x27;Germany&#x27;);
+INSERT INTO passengers VALUES (3, &#x27;Carlos Corny&#x27;, &#x27;P345678&#x27;, &#x27;Spain&#x27;);
+INSERT INTO passengers VALUES (4, &#x27;David Dias&#x27;, &#x27;P678000&#x27;, &#x27;England&#x27;);
+INSERT INTO passengers VALUES (5, &#x27;Elena Ending&#x27;, &#x27;P111111&#x27;, &#x27;Switzerland&#x27;);
+INSERT INTO passengers VALUES (6, &#x27;Frank Filler&#x27;, &#x27;P222222&#x27;, &#x27;France&#x27;);
+INSERT INTO passengers VALUES (7, &#x27;Grace Gration&#x27;, &#x27;P333333&#x27;, &#x27;Italy&#x27;);
 
-CREATE TABLE Inhabitant (
-    personid SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    villageid INTEGER NOT NULL
-        REFERENCES Village(villageid),
-    gender inhabitant_gender,
-    job TEXT NOT NULL,
-    gold INTEGER,
-    state inhabitant_state
+CREATE TABLE check_ins (
+  checkin_id INT,
+  passenger_id INT,
+  seat_number VARCHAR(10)
 );
+INSERT INTO check_ins VALUES (1, 1, &#x27;12A&#x27;);
+INSERT INTO check_ins VALUES (2, 5, &#x27;7B&#x27;);
+INSERT INTO check_ins VALUES (3, 4, &#x27;14C&#x27;);
+INSERT INTO check_ins VALUES (4, 3, &#x27;1A&#x27;);
+INSERT INTO check_ins VALUES (5, 7, &#x27;9D&#x27;);
 
-CREATE TABLE Item (
-    item TEXT NOT NULL,
-    owner INTEGER
+CREATE TABLE bus_station (
+  person_id INT,
+  name VARCHAR(100),
+  location VARCHAR(50)
 );
+INSERT INTO bus_station VALUES (101, &#x27;Elton Jhon&#x27;, &#x27;bench&#x27;);
+INSERT INTO bus_station VALUES (102, &#x27;Eve Adams&#x27;, &#x27;sidewalk&#x27;);
+INSERT INTO bus_station VALUES (103, &#x27;Alice Smith&#x27;, &#x27;bus shelter&#x27;);
+INSERT INTO bus_station VALUES (105, &#x27;Bob Bently&#x27;, &#x27;street light&#x27;);
+INSERT INTO bus_station VALUES (104, &#x27;John Novak&#x27;, &#x27;bush&#x27;);
 
-INSERT INTO Village (name, chief)
-VALUES
-(&#x27;Monkeycity&#x27;, 1),
-(&#x27;Cucumbertown&#x27;, 6),
-(&#x27;Onionville&#x27;,13);
+CREATE TABLE sunglasses (
+  sunglasses VARCHAR(100),
+  passenger_id INT
+);
+INSERT INTO sunglasses VALUES (&#x27;RayBan Sunglasses&#x27;, 1);
+INSERT INTO sunglasses VALUES (&#x27;Pilot Sunglasses&#x27;, NULL);
+INSERT INTO sunglasses VALUES (&#x27;Oakley Sunglasses&#x27;, 3);
+INSERT INTO sunglasses VALUES (&#x27;Blue Glasses&#x27;, 4);
+INSERT INTO sunglasses VALUES (&#x27;Prada Sunglasses&#x27;, 6);
 
-INSERT INTO Inhabitant (name, villageid, gender, job, gold, state)
-VALUES
-(&#x27;Paul Bakerman&#x27;, 1, &#x27;m&#x27;, &#x27;baker&#x27;, 850, &#x27;friendly&#x27;),
-(&#x27;Ernest Perry&#x27;, 3, &#x27;m&#x27;, &#x27;weaponsmith&#x27;, 280, &#x27;friendly&#x27;),
-(&#x27;Rita Ox&#x27;, 1, &#x27;f&#x27;, &#x27;baker&#x27;, 350, &#x27;friendly&#x27;),
-(&#x27;Carl Ox&#x27;, 1, &#x27;m&#x27;, &#x27;merchant&#x27;, 250, &#x27;friendly&#x27;),
-(&#x27;Dirty Dieter&#x27;, 3, &#x27;m&#x27;, &#x27;smith&#x27;, 650, &#x27;evil&#x27;),
-(&#x27;Gerry Slaughterer&#x27;, 2, &#x27;m&#x27;, &#x27;butcher&#x27;, 4850, &#x27;evil&#x27;),
-(&#x27;Peter Slaughterer&#x27;, 3, &#x27;m&#x27;, &#x27;butcher&#x27;, 3250, &#x27;evil&#x27;),
-(&#x27;Arthur Tailor&#x27;, 2, &#x27;m&#x27;, &#x27;pilot&#x27;, 490, &#x27;kidnapped&#x27;),
-(&#x27;Tiffany Drummer&#x27;, 1, &#x27;f&#x27;, &#x27;baker&#x27;, 550, &#x27;evil&#x27;),
-(&#x27;Peter Drummer&#x27;, 1, &#x27;m&#x27;, &#x27;smith&#x27;, 600, &#x27;friendly&#x27;),
-(&#x27;Dirty Diane&#x27;, 3, &#x27;f&#x27;, &#x27;farmer&#x27;, 10, &#x27;evil&#x27;),
-(&#x27;Otto Alexander&#x27;, 2, &#x27;m&#x27;, &#x27;dealer&#x27;, 680, &#x27;friendly&#x27;),
-(&#x27;Fred Dix&#x27;, 3, &#x27;m&#x27;, &#x27;author&#x27;, 420, &#x27;friendly&#x27;),
-(&#x27;Enrico Carpenter&#x27;, 3, &#x27;m&#x27;, &#x27;weaponsmith&#x27;, 510, &#x27;evil&#x27;),
-(&#x27;Helen Grasshead&#x27;, 2, &#x27;f&#x27;, &#x27;dealer&#x27;, 680, &#x27;friendly&#x27;),
-(&#x27;Ivy Hatter&#x27;, 1, &#x27;f&#x27;, &#x27;dealer&#x27;, 770, &#x27;evil&#x27;),
-(&#x27;Edward Grasshead&#x27;, 3, &#x27;m&#x27;, &#x27;butcher&#x27;, 990, &#x27;friendly&#x27;),
-(&#x27;Ryan Horse&#x27;, 3, &#x27;m&#x27;, &#x27;blacksmith&#x27;, 390, &#x27;friendly&#x27;),
-(&#x27;Ann Meaty&#x27;, 2, &#x27;f&#x27;, &#x27;butcher&#x27;, 2280, &#x27;friendly&#x27;);
-
-INSERT INTO Item (item, owner)
-VALUES
-(&#x27;teapot&#x27;, NULL),
-(&#x27;cane&#x27;, 5),
-(&#x27;hammer&#x27;, 2),
-(&#x27;ring&#x27;, NULL),
-(&#x27;coffee cup&#x27;, NULL),
-(&#x27;bucket&#x27;, NULL),
-(&#x27;rope&#x27;, 17),
-(&#x27;carton&#x27;, NULL),
-(&#x27;lightbulb&#x27;, NULL);</initial-sql-script>
+CREATE TABLE seats (
+  seat_number VARCHAR(10),
+  position VARCHAR(20)
+);
+INSERT INTO seats VALUES (&#x27;12A&#x27;, &#x27;window&#x27;);
+INSERT INTO seats VALUES (&#x27;12B&#x27;, &#x27;middle&#x27;);
+INSERT INTO seats VALUES (&#x27;7A&#x27;, &#x27;aisle&#x27;);
+INSERT INTO seats VALUES (&#x27;9A&#x27;, &#x27;middle&#x27;);
+INSERT INTO seats VALUES (&#x27;7B&#x27;, &#x27;middle&#x27;);
+</initial-sql-script>
 </game>
