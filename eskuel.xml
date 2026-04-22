@@ -10,57 +10,52 @@
             <text>After you escaped from the island you were stranded on last week. You decide that you want to visit the friends you made along the way while escaping.
 At the gate the flight attendant tells you that they want to start boarding but the terminal gives error message, passenger count incomplete.</text>
         </text-scene>
-        <manipulate-scene>
+        <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>It is the first day of work for the flight attendant and they ask you to help them with the terminal. First we want to see which passengers are registered for the flight.</text>
             <sql-solution>SELECT * FROM passengers;</sql-solution>
-            <sql-check>SELECT * FROM passengers;</sql-check>
             <sql-placeholder></sql-placeholder>
-        </manipulate-scene>
-        <manipulate-scene>
+        </select-scene>
+        <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>So now we you have to check which passenger have actually already checked in:</text>
-            <sql-solution></sql-solution>
-            <sql-check>SELECT p.passenger_id, p.name
+            <sql-solution>SELECT p.passenger_id, p.name
 FROM passengers p
 JOIN check_ins c
-ON p.passenger_id = c.passenger_id;</sql-check>
+ON p.passenger_id = c.passenger_id;</sql-solution>
             <sql-placeholder></sql-placeholder>
-        </manipulate-scene>
-        <manipulate-scene>
+        </select-scene>
+        <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>However, now we need to find the others who are not checked in. (Use and LEFT JOIN with IS NULL)</text>
             <sql-solution>SELECT p.passenger_id, p.name
 FROM passengers p
 LEFT JOIN check_ins c
 ON p.passenger_id = c.passenger_id
-WHERE c.passenger_id IS N</sql-solution>
-            <sql-check>SELECT p.passenger_id, p.name
-FROM passengers p
-LEFT JOIN check_ins c
-ON p.passenger_id = c.passenger_id
-WHERE c.passenger_id IS NULL;</sql-check>
+WHERE c.passenger_id IS NULL;</sql-solution>
             <sql-placeholder></sql-placeholder>
-        </manipulate-scene>
-        <manipulate-scene>
+        </select-scene>
+        <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>The flight attendant tells you that a lot of people arrive at the airport by bus, so you should check the bus station out.
 You arrive at the bus station and find a lot of people waiting for the bus. But you have no idea which of the waiting people is the missing passenger.
 Maybe you can find out who the missing person is by comparing the waiting persons with the passengers and check their location at the bus station.</text>
-            <sql-solution></sql-solution>
+            <sql-solution>SELECT p.passenger_id, p.name, b.location
+FROM passengers p
+JOIN bus_station b
+ON p.name = b.name;</sql-solution>
+            <sql-placeholder></sql-placeholder>
+        </select-scene>
+        <manipulate-scene>
+            <text>Nice! You found the missing passenger. He is standing under the street light. The missing passengers tells you that they have decided to take the bus instead of the flight to the island vacation. So now remove all passenger from the list which are taking the bus.</text>
+            <sql-solution>DELETE FROM passengers
+WHERE name IN (
+SELECT b.name
+FROM bus_station b
+);</sql-solution>
             <sql-check>SELECT p.passenger_id, p.name, b.location
 FROM passengers p
 JOIN bus_station b
 ON p.name = b.name;</sql-check>
             <sql-placeholder></sql-placeholder>
         </manipulate-scene>
-        <manipulate-scene>
-            <text>Nice! You found the missing passenger. He is standing under the street light. The missing passengers tells you that they have decided to take the bus instead of the flight to the island vacation. So now you can remove them from the passenger list.</text>
-            <sql-solution></sql-solution>
-            <sql-check>DELETE FROM passengers
-WHERE name IN (
-SELECT b.name
-FROM bus_station b
-);</sql-check>
-            <sql-placeholder></sql-placeholder>
-        </manipulate-scene>
-        <manipulate-scene>
+        <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>Suddenly, you realize you are missing your pilot sunglasses, you must have left them at the gate. You see several sunglasses lying on the table. Check which of the sunglasses have no owner, these must belong to you. (Use NOT EXISTS)</text>
             <sql-solution>SELECT s.sunglasses
 FROM sunglasses s
@@ -69,37 +64,21 @@ SELECT *
 FROM passengers p
 WHERE p.passenger_id = s.passenger_id
 );</sql-solution>
-            <sql-check>SELECT s.sunglasses
-FROM sunglasses s
-WHERE NOT EXISTS (
-SELECT *
-FROM passengers p
-WHERE p.passenger_id = s.passenger_id
-);</sql-check>
             <sql-placeholder></sql-placeholder>
-        </manipulate-scene>
-        <manipulate-scene>
+        </select-scene>
+        <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>You finally board the plane and you realize you lost your ticket and you do not know you seat. But you want to sit at the window so you only want to sit on a window seat. Check which seat has not been assigned to any passenger and is located next to the window. (Use JOIN with NOT IN)</text>
             <sql-solution>SELECT s.seat_number
 FROM seats s
 WHERE s.seat_number NOT IN (
-SELECT c.seat_number
-FROM check_ins c
+    SELECT c.seat_number
+    FROM check_ins c
 )
-AND s.position =</sql-solution>
-            <sql-check>SELECT s.seat_number
-FROM seats s
-WHERE s.seat_number NOT IN (
-SELECT c.seat_number
-FROM check_ins c
-)
-AND s.position = &#x2018;window&#x2019;;</sql-check>
+AND s.position = &#x27;window&#x27;;</sql-solution>
             <sql-placeholder></sql-placeholder>
-        </manipulate-scene>
+        </select-scene>
         <text-scene>
-            <text>So now you can finally take off and you are looking forward to your vacation.
-
-</text>
+            <text>So now you can finally take off and you are looking forward to your vacation.</text>
         </text-scene>
     </scenes>
     <initial-sql-script>CREATE TABLE passengers (
@@ -156,6 +135,5 @@ INSERT INTO seats VALUES (&#x27;12A&#x27;, &#x27;window&#x27;);
 INSERT INTO seats VALUES (&#x27;12B&#x27;, &#x27;middle&#x27;);
 INSERT INTO seats VALUES (&#x27;7A&#x27;, &#x27;aisle&#x27;);
 INSERT INTO seats VALUES (&#x27;9A&#x27;, &#x27;middle&#x27;);
-INSERT INTO seats VALUES (&#x27;7B&#x27;, &#x27;middle&#x27;);
-</initial-sql-script>
+INSERT INTO seats VALUES (&#x27;7B&#x27;, &#x27;middle&#x27;);</initial-sql-script>
 </game>
