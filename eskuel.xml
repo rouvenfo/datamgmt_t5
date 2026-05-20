@@ -19,6 +19,11 @@
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
+            <text>Good job, your very first query of the journey!
+
+You just interacted with the terminal of the airport and found the correct solution. Every great SQL adventurer begins with a single SELECT. Keep that momentum going!</text>
+        </text-scene>
+        <text-scene>
             <text>After a few seconds, the complete list of passengers registered for the flight becomes visible on the screen. You have selected all of the registered passengers and you helped the flight attendant.
 
 You just interacted with the terminal of the airport and found the correct solution. Every great SQL adventurer begins with a single SELECT. Keep that momentum going!</text>
@@ -31,6 +36,11 @@ JOIN check_ins c
 ON p.passenger_id = c.passenger_id;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
+        <text-scene>
+            <text>Nicely done!
+
+You just connected two tables using a JOIN, one of the core operations in relational SQL. You&#x2019;re starting to see how data can be combined across tables.</text>
+        </text-scene>
         <text-scene>
             <text>Good progress so far. The passengers who have already checked in have now been successfully identified, but the resulting list is shorter than expected. It appears that at least one passenger is still missing from the check-in records.</text>
         </text-scene>
@@ -46,6 +56,11 @@ ON p.passenger_id = c.passenger_id
 WHERE c.passenger_id IS NULL;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
+        <text-scene>
+            <text>Your first anti-join, outstanding!
+
+You&#x2019;ve used one of SQL&#x2019;s most useful patterns: identifying missing records. Keep going!</text>
+        </text-scene>
         <text-scene>
             <text>The terminal highlights the names that were missing from the check-in list. With that information, you can now clearly see which passengers have not shown up or completed the check-in process yet. Oh no, one passenger is missing! We cannot take of without this passenger. We need to find them to finally be able to go.</text>
         </text-scene>
@@ -69,6 +84,11 @@ ON p.name = b.name;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
+            <text>Sharp eye, detective!
+
+You matched records across two datasets &#x2014; a practical example of how SQL is used to link and reconcile real-world data. Nice!</text>
+        </text-scene>
+        <text-scene>
             <text>Nice work, you&#x2019;ve successfully found the missing passenger. He&#x2019;s standing under the street light just outside the main entrance, confirming his location from the bus station data.</text>
         </text-scene>
         <text-scene>
@@ -87,6 +107,11 @@ JOIN bus_station b
 ON p.name = b.name;</sql-check>
             <sql-placeholder></sql-placeholder>
         </manipulate-scene>
+        <text-scene>
+            <text>Clean cut!
+
+You updated the database using a DELETE statement with a subquery, which is a solid and common SQL pattern.</text>
+        </text-scene>
         <text-scene>
             <text>The passenger list is now accurate. You get back to the airport and boarding can finally proceed.</text>
         </text-scene>
@@ -109,6 +134,11 @@ WHERE p.passenger_id = s.passenger_id
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
+            <text>Cool move!
+
+NOT EXISTS is the gold standard of anti-joins &#x2014; and you wielded it flawlessly. Looking good and querying smart!</text>
+        </text-scene>
+        <text-scene>
             <text>You pick the sunglasses up. They fit perfectly. Nice, you are ready for the vacation!</text>
         </text-scene>
         <text-scene>
@@ -126,6 +156,11 @@ AND s.position = &#x27;window&#x27;;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
+            <text>Window seat secured!
+
+You combined NOT IN with a filter &#x2014; solid intermediate-level SQL quering. Good job!</text>
+        </text-scene>
+        <text-scene>
             <text>You settle into the window seat and take a breath as the plane readies for departure. But all of a sudden someone of the ground crew boards the plane and asks you for you help, since you were such a help to the flight attendant.</text>
         </text-scene>
         <text-scene>
@@ -141,6 +176,13 @@ WHERE passenger_id NOT IN (
 );</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
+        <text-scene>
+            <text>Bags sorted!
+
+Another anti-join nailed. You&#x2019;re spotting orphaned data like a seasoned analyst.
+
+</text>
+        </text-scene>
         <text-scene>
             <text>By filtering out all luggage items that do have a valid owner, you are left with only those pieces that have no matching checked-in passenger, making it possible to identify the stray bags that still need attention.</text>
         </text-scene>
@@ -162,6 +204,11 @@ WHERE NOT EXISTS (
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
+            <text>The captain salutes you!
+
+Spotting unassigned crew with NOT EXISTS is exactly how real-world auditors keep operations running smoothly.</text>
+        </text-scene>
+        <text-scene>
             <text>The captain gives a confirming nod after reviewing the results. The crew members who were previously without assignments have now been clearly identified, and the situation is fully under control. You can finally return to your window seat in the plane.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
@@ -173,6 +220,10 @@ ON m.meal_id = o.meal_id
 WHERE o.meal_id IS NULL;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
+        <text-scene>
+            <text>You have made it!
+</text>
+        </text-scene>
         <text-scene>
             <text>The caterer rolls the trolley away &#x2014; the unwanted meals are off the plane, and there&#x2019;s more room for snacks. You made it! All of the obstacles to your vacations are out of your way. You relax in the seat and can finally look forward to your well deserved vacation.</text>
         </text-scene>
