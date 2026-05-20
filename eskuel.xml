@@ -14,7 +14,9 @@
             <text>You arrive at the airport with all your luggage and get ready to board. At the gate the flight attendant tells you that they want to start boarding but the terminal gives error message, passenger count incomplete.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>It is the first day of work for the flight attendant, and they ask you to help them learn how to use the terminal system. To begin with, the first thing we want to do is check which passengers are currently registered for the flight.</text>
+            <text>Challenge 0 &#x2013; See Passengers
+
+It is the first day of work for the flight attendant, and they ask you to help them learn how to use the terminal system. To begin with, the first thing we want to do is check which passengers are currently registered for the flight.</text>
             <sql-solution>SELECT * FROM passengers;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
@@ -27,7 +29,9 @@
 You just interacted with the terminal of the airport and found the correct solution. Every great SQL adventurer begins with a single SELECT. Keep that momentum going!</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>Now that the passenger list is available, the next task is to verify which passengers have already completed the check-in process for the flight. You will need to help the flight attendant with this task too. The result should show two columns: the passenger_id and the name of each checked-in passenger.</text>
+            <text>Challenge 1.1 &#x2013; Plane Check-ins
+
+Now that the passenger list is available, the next task is to verify which passengers have already completed the check-in process for the flight. You will need to help the flight attendant with this task too. The result should show two columns: the passenger_id and the name of each checked-in passenger.</text>
             <sql-solution>SELECT p.passenger_id, p.name
 FROM passengers p
 JOIN check_ins c
@@ -43,7 +47,9 @@ ON p.passenger_id = c.passenger_id;</sql-solution>
 You just connected two tables using a JOIN, one of the core operations in relational SQL. You&#x2019;re starting to see how data can be combined across tables.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>However, the task is not finished yet. We have already identified the passengers who successfully checked in, but now we need to determine which passengers have not completed the check-in process and are still missing from the checked-in list so that we can finally start embarking on our holiday to the SQL island. (Use and LEFT JOIN with IS NULL)</text>
+            <text>Challenge 1.2 &#x2013; Missing Passenger
+
+However, the task is not finished yet. We have already identified the passengers who successfully checked in, but now we need to determine which passengers have not completed the check-in process and are still missing from the checked-in list so that we can finally start embarking on our holiday to the SQL island. (Use and LEFT JOIN with IS NULL)</text>
             <sql-solution>SELECT p.passenger_id, p.name
 FROM passengers p
 LEFT JOIN check_ins c
@@ -70,7 +76,9 @@ You&#x2019;ve used one of SQL&#x2019;s most useful patterns: identifying missing
             <text>Since you don&#x2019;t have any direct identification, you need a more systematic approach. One possible method is to compare the list of passengers who have not yet checked in with the people currently waiting at the bus station.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>By cross-referencing these two groups, and potentially taking into account where each person is located within the station, you might be able to determine whether the missing passenger is among the crowd.</text>
+            <text>Challenge 2.1 &#x2013; Finding the Passenger
+
+By cross-referencing these two groups, and potentially taking into account where each person is located within the station, you might be able to determine whether the missing passenger is among the crowd.</text>
             <sql-solution>SELECT p.passenger_id, p.name, b.location
 FROM passengers p
 JOIN bus_station b
@@ -89,7 +97,9 @@ You matched records across two datasets &#x2014; a practical example of how SQL 
             <text>After speaking with him, you learn that he and several others have decided to take the bus instead of boarding the flight to the island vacation. This explains why they never appeared in the final check-in list.</text>
         </text-scene>
         <manipulate-scene>
-            <text>Now the next step is to update your dataset accordingly: you should remove the passengers who is confirmed to be taking the bus from the flight roster. This ensures that the passenger list only includes passengers who are actually expected to board the flight.</text>
+            <text>Challenge 2.2 &#x2013; Removing the Passenger
+
+Now the next step is to update your dataset accordingly: you should remove the passengers who is confirmed to be taking the bus from the flight roster. This ensures that the passenger list only includes passengers who are actually expected to board the flight.</text>
             <sql-solution>DELETE FROM passengers
 WHERE name IN (
 SELECT b.name
@@ -119,7 +129,9 @@ You updated the database using a DELETE statement with a subquery, which is a so
             <text>At first glance, it&#x2019;s not immediately clear which pair belongs to whom, as there are multiple similar-looking items with no clear labels or identifiers. To solve this, you need to determine which sunglasses do not have an assigned owner.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>By checking which items in the collection are not linked to any known passenger or record, you can narrow down the possibilities.
+            <text>Challenge 3 &#x2013; Missing Sunglasses
+
+By checking which items in the collection are not linked to any known passenger or record, you can narrow down the possibilities.
 The pairs that do not match any recorded owner should be the ones that belong to you. (Use NOT EXISTS)</text>
             <sql-solution>SELECT s.sunglasses
 FROM sunglasses s
@@ -142,7 +154,9 @@ NOT EXISTS is the gold standard of anti-joins &#x2014; and you wielded it flawle
             <text>You finally make it onto the plane, only to realize that your ticket is missing and you no longer know your assigned seat. Oh no, you have to find out which seats are free. But you prefer to sit at the window, because you want to enjoy the beautiful view of the island from the plane.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>You now need to identify an available seat that is located next to the window and has not already been assigned to any other passenger. (Use JOIN with NOT IN)</text>
+            <text>Challenge 4 &#x2013; Seat Finding
+
+You now need to identify an available seat that is located next to the window and has not already been assigned to any other passenger. (Use JOIN with NOT IN)</text>
             <sql-solution>SELECT s.seat_number
 FROM seats s
 WHERE s.seat_number NOT IN (
@@ -164,7 +178,9 @@ You combined NOT IN with a filter &#x2014; solid intermediate-level SQL quering.
             <text>During boarding the ground crew had noticed several bags still moving along the conveyor belt that don&#x2019;t appear to match any of the passengers who have checked in for the flight.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>To resolve this, you need to compare the luggage records against the list of checked-in passengers. Any bag that does not have a corresponding passenger entry can be considered unclaimed or unmatched.</text>
+            <text>Challenge 5 &#x2013; Unclaimed Luggage
+
+To resolve this, you need to compare the luggage records against the list of checked-in passengers. Any bag that does not have a corresponding passenger entry can be considered unclaimed or unmatched.</text>
             <sql-solution>SELECT *
 FROM luggage
 WHERE passenger_id NOT IN (
@@ -190,7 +206,9 @@ Another anti-join nailed. You&#x2019;re spotting orphaned data like a seasoned a
             <text>To identify them, you compare the full list of crew members against the assignment records. Any crew member who does not appear in the duty assignments table is effectively unassigned.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>These are the individuals currently standing by without a designated task, waiting for instructions. Since you already doing such a great job with querying, you need to help the pilot to find the crew members without an duty.</text>
+            <text>Challenge 6 &#x2013; Unassigned Crew
+
+These are the individuals currently standing by without a designated task, waiting for instructions. Since you already doing such a great job with querying, you need to help the pilot to find the crew members without an duty.</text>
             <sql-solution>SELECT *
 FROM crew c
 WHERE NOT EXISTS (
@@ -209,7 +227,9 @@ Spotting unassigned crew with NOT EXISTS is exactly how real-world auditors keep
             <text>The captain gives a confirming nod after reviewing the results. The crew members who were previously without assignments have now been clearly identified, and the situation is fully under control. You can finally return to your window seat in the plane.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>Just as you sit down, the caterer come to ask for your help. The caterer needs to offload excess food before departure. Find all meal options that not a single passenger has ordered, so they can be removed from the trolley and the plane is lighter.</text>
+            <text>Challenge 7 &#x2013; Unordered Meals
+
+Just as you sit down, the caterer come to ask for your help. The caterer needs to offload excess food before departure. Find all meal options that not a single passenger has ordered, so they can be removed from the trolley and the plane is lighter.</text>
             <sql-solution>SELECT m.*
 FROM meal_options m
 LEFT JOIN meal_orders o
