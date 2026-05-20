@@ -19,17 +19,15 @@
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
+            <text>After a few seconds, the complete list of passengers registered for the flight becomes visible on the screen. You have selected all of the registered passengers and you helped the flight attendant.</text>
+        </text-scene>
+        <text-scene>
             <text>Good job, your very first query of the journey!
 
 You just interacted with the terminal of the airport and found the correct solution. Every great SQL adventurer begins with a single SELECT. Keep that momentum going!</text>
         </text-scene>
-        <text-scene>
-            <text>After a few seconds, the complete list of passengers registered for the flight becomes visible on the screen. You have selected all of the registered passengers and you helped the flight attendant.
-
-You just interacted with the terminal of the airport and found the correct solution. Every great SQL adventurer begins with a single SELECT. Keep that momentum going!</text>
-        </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>Now that the passenger list is available, the next task is to verify which passengers have already completed the check-in process for the flight. You will need to help the flight attendant with this tasks too. The result should show the passenger id and passenger name from the checked-in passengers.</text>
+            <text>Now that the passenger list is available, the next task is to verify which passengers have already completed the check-in process for the flight. You will need to help the flight attendant with this task too. The result should show two columns: the passenger_id and the name of each checked-in passenger.</text>
             <sql-solution>SELECT p.passenger_id, p.name
 FROM passengers p
 JOIN check_ins c
@@ -37,15 +35,12 @@ ON p.passenger_id = c.passenger_id;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
-            <text>Nicely done!
-
-You just connected two tables using a JOIN, one of the core operations in relational SQL. You&#x2019;re starting to see how data can be combined across tables.</text>
-        </text-scene>
-        <text-scene>
             <text>Good progress so far. The passengers who have already checked in have now been successfully identified, but the resulting list is shorter than expected. It appears that at least one passenger is still missing from the check-in records.</text>
         </text-scene>
         <text-scene>
-            <text>You just connected two tables using a JOIN, one of the core operations in relational SQL. You&#x2019;re starting to see how data can be combined across tables.</text>
+            <text>Nicely done!
+
+You just connected two tables using a JOIN, one of the core operations in relational SQL. You&#x2019;re starting to see how data can be combined across tables.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
             <text>However, the task is not finished yet. We have already identified the passengers who successfully checked in, but now we need to determine which passengers have not completed the check-in process and are still missing from the checked-in list so that we can finally start embarking on our holiday to the SQL island. (Use and LEFT JOIN with IS NULL)</text>
@@ -57,12 +52,12 @@ WHERE c.passenger_id IS NULL;</sql-solution>
             <sql-placeholder></sql-placeholder>
         </select-scene>
         <text-scene>
-            <text>Your first anti-join, outstanding!
+            <text>Your first anti-join &#x2014; outstanding!
 
 You&#x2019;ve used one of SQL&#x2019;s most useful patterns: identifying missing records. Keep going!</text>
         </text-scene>
         <text-scene>
-            <text>The terminal highlights the names that were missing from the check-in list. With that information, you can now clearly see which passengers have not shown up or completed the check-in process yet. Oh no, one passenger is missing! We cannot take of without this passenger. We need to find them to finally be able to go.</text>
+            <text>The terminal highlights the names that were missing from the check-in list. With that information, you can now clearly see which passengers have not shown up or completed the check-in process yet. Oh no, one passenger is missing! We cannot take off without this passenger. We need to find them to finally be able to go.</text>
         </text-scene>
         <image-scene>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</image-scene>
         <text-scene>
@@ -75,8 +70,7 @@ You&#x2019;ve used one of SQL&#x2019;s most useful patterns: identifying missing
             <text>Since you don&#x2019;t have any direct identification, you need a more systematic approach. One possible method is to compare the list of passengers who have not yet checked in with the people currently waiting at the bus station.</text>
         </text-scene>
         <select-scene is-row-order-relevant="false" is-col-order-relevant="false" are-col-names-relevant="false">
-            <text>By cross-referencing these two groups, and potentially taking into account where each person is located within the station, you might be able to determine whether the missing passenger is among the crowd.
-Maybe you can find out who the missing person is by comparing the waiting persons with the passengers and check their location at the bus station.</text>
+            <text>By cross-referencing these two groups, and potentially taking into account where each person is located within the station, you might be able to determine whether the missing passenger is among the crowd.</text>
             <sql-solution>SELECT p.passenger_id, p.name, b.location
 FROM passengers p
 JOIN bus_station b
@@ -116,7 +110,10 @@ You updated the database using a DELETE statement with a subquery, which is a so
             <text>The passenger list is now accurate. You get back to the airport and boarding can finally proceed.</text>
         </text-scene>
         <text-scene>
-            <text>Suddenly, you realize something important is missing. You lost your pilot sunglasses. Thinking back, you are fairly certain you must have left them at the gate earlier. When you return to the area, you notice several pairs of sunglasses scattered across a table, likely left behind by different travelers.</text>
+            <text>Now that every passenger has been located, whether they took the bus or the plane, you can continue with the starting procedure.</text>
+        </text-scene>
+        <text-scene>
+            <text>But suddenly, you realize something important is missing. You&#x2019;ve lost your pilot sunglasses, without which he cannot correctly pilot the plane. Thinking back, you are fairly certain you must have left them at the gate earlier. When you return to the area, you notice several pairs of sunglasses scattered across a table, likely left behind by different travelers.</text>
         </text-scene>
         <text-scene>
             <text>At first glance, it&#x2019;s not immediately clear which pair belongs to whom, as there are multiple similar-looking items with no clear labels or identifiers. To solve this, you need to determine which sunglasses do not have an assigned owner.</text>
@@ -244,53 +241,131 @@ WHERE o.meal_id IS NULL;</sql-solution>
   passport_no VARCHAR(50),
   nationality VARCHAR(50)
 );
-INSERT INTO passengers VALUES (1, &#x27;Alice Anson&#x27;, &#x27;P123456&#x27;, &#x27;USA&#x27;);
-INSERT INTO passengers VALUES (2, &#x27;Bob Bently&#x27;, &#x27;P789012&#x27;, &#x27;Germany&#x27;);
-INSERT INTO passengers VALUES (3, &#x27;Carlos Corny&#x27;, &#x27;P345678&#x27;, &#x27;Spain&#x27;);
-INSERT INTO passengers VALUES (4, &#x27;David Dias&#x27;, &#x27;P678000&#x27;, &#x27;England&#x27;);
-INSERT INTO passengers VALUES (5, &#x27;Elena Ending&#x27;, &#x27;P111111&#x27;, &#x27;Switzerland&#x27;);
-INSERT INTO passengers VALUES (6, &#x27;Frank Filler&#x27;, &#x27;P222222&#x27;, &#x27;France&#x27;);
-INSERT INTO passengers VALUES (7, &#x27;Grace Gration&#x27;, &#x27;P333333&#x27;, &#x27;Italy&#x27;);
 
 CREATE TABLE check_ins (
   checkin_id INT,
   passenger_id INT,
   seat_number VARCHAR(10)
 );
-INSERT INTO check_ins VALUES (1, 1, &#x27;12A&#x27;);
-INSERT INTO check_ins VALUES (2, 5, &#x27;7B&#x27;);
-INSERT INTO check_ins VALUES (3, 4, &#x27;14C&#x27;);
-INSERT INTO check_ins VALUES (4, 3, &#x27;1A&#x27;);
-INSERT INTO check_ins VALUES (5, 7, &#x27;9D&#x27;);
 
 CREATE TABLE bus_station (
   person_id INT,
   name VARCHAR(100),
   location VARCHAR(50)
 );
-INSERT INTO bus_station VALUES (101, &#x27;Elton Jhon&#x27;, &#x27;bench&#x27;);
-INSERT INTO bus_station VALUES (102, &#x27;Eve Adams&#x27;, &#x27;sidewalk&#x27;);
-INSERT INTO bus_station VALUES (103, &#x27;Alice Smith&#x27;, &#x27;bus shelter&#x27;);
-INSERT INTO bus_station VALUES (105, &#x27;Bob Bently&#x27;, &#x27;street light&#x27;);
-INSERT INTO bus_station VALUES (104, &#x27;John Novak&#x27;, &#x27;bush&#x27;);
 
 CREATE TABLE sunglasses (
   sunglasses VARCHAR(100),
   passenger_id INT
 );
-INSERT INTO sunglasses VALUES (&#x27;RayBan Sunglasses&#x27;, 1);
-INSERT INTO sunglasses VALUES (&#x27;Pilot Sunglasses&#x27;, NULL);
-INSERT INTO sunglasses VALUES (&#x27;Oakley Sunglasses&#x27;, 3);
-INSERT INTO sunglasses VALUES (&#x27;Blue Glasses&#x27;, 4);
-INSERT INTO sunglasses VALUES (&#x27;Prada Sunglasses&#x27;, 6);
 
 CREATE TABLE seats (
   seat_number VARCHAR(10),
   position VARCHAR(20)
 );
-INSERT INTO seats VALUES (&#x27;12A&#x27;, &#x27;window&#x27;);
-INSERT INTO seats VALUES (&#x27;12B&#x27;, &#x27;middle&#x27;);
-INSERT INTO seats VALUES (&#x27;7A&#x27;, &#x27;aisle&#x27;);
-INSERT INTO seats VALUES (&#x27;9A&#x27;, &#x27;middle&#x27;);
-INSERT INTO seats VALUES (&#x27;7B&#x27;, &#x27;middle&#x27;);</initial-sql-script>
+
+CREATE TABLE luggage (
+    luggage_id    INT PRIMARY KEY,
+    passenger_id  INT,
+    weight_kg     DECIMAL(5,2)
+);
+
+CREATE TABLE crew (
+    crew_id  INT PRIMARY KEY,
+    name     VARCHAR(50),
+    role     VARCHAR(50)
+);
+
+CREATE TABLE duty_assignments (
+    assignment_id  INT PRIMARY KEY,
+    crew_id        INT,
+    duty           VARCHAR(100)
+);
+
+CREATE TABLE meal_options (
+    meal_id    INT PRIMARY KEY,
+    meal_name  VARCHAR(100),
+    category   VARCHAR(50)
+);
+
+CREATE TABLE meal_orders (
+    order_id      INT PRIMARY KEY,
+    passenger_id  INT,
+    meal_id       INT
+);
+
+INSERT INTO passengers (passenger_id, name, passport_no, nationality) VALUES
+(1, &#x27;Alice Anson&#x27;, &#x27;P123456&#x27;, &#x27;USA&#x27;),
+(2, &#x27;Bob Bently&#x27;, &#x27;P789012&#x27;, &#x27;Germany&#x27;),
+(3, &#x27;Carlos Corny&#x27;, &#x27;P345678&#x27;, &#x27;Spain&#x27;),
+(4, &#x27;David Dias&#x27;, &#x27;P678000&#x27;, &#x27;England&#x27;),
+(5, &#x27;Elena Ending&#x27;, &#x27;P111111&#x27;, &#x27;Switzerland&#x27;),
+(6, &#x27;Francesca Frances&#x27;, &#x27;P000000&#x27;, &#x27;France&#x27;),
+(7, &#x27;Max Mustermann&#x27;, &#x27;P493157&#x27;, &#x27;Mexico&#x27;);
+
+INSERT INTO check_ins (checkin_id, passenger_id, seat_number) VALUES
+(1, 1, &#x27;12A&#x27;),
+(2, 5, &#x27;7B&#x27;),
+(3, 4, &#x27;14C&#x27;),
+(4, 3, &#x27;1A&#x27;),
+(5, 7, &#x27;9D&#x27;),
+(6, 6, &#x27;2A&#x27;);
+
+INSERT INTO bus_station (person_id, name, location) VALUES
+(101, &#x27;Elton Jhon&#x27;, &#x27;bench&#x27;),
+(102, &#x27;Eve Adams&#x27;, &#x27;sidewalk&#x27;),
+(103, &#x27;Alice Smith&#x27;, &#x27;bus shelter&#x27;),
+(105, &#x27;Bob Bently&#x27;, &#x27;street light&#x27;),
+(104, &#x27;John Novak&#x27;, &#x27;bush&#x27;);
+
+INSERT INTO sunglasses (sunglasses, passenger_id) VALUES
+(&#x27;RayBan Sunglasses&#x27;, 1),
+(&#x27;Pilot Sunglasses&#x27;, NULL),
+(&#x27;Oakley Sunglasses&#x27;, 3),
+(&#x27;Blue Glasses&#x27;, 4),
+(&#x27;Prada Sunglasses&#x27;, 6);
+
+INSERT INTO seats (seat_number, position) VALUES
+(&#x27;12A&#x27;, &#x27;window&#x27;),
+(&#x27;12B&#x27;, &#x27;middle&#x27;),
+(&#x27;7A&#x27;, &#x27;aisle&#x27;),
+(&#x27;9A&#x27;, &#x27;middle&#x27;),
+(&#x27;7B&#x27;, &#x27;middle&#x27;),
+(&#x27;14C&#x27;, &#x27;window&#x27;),
+(&#x27;1A&#x27;, &#x27;window&#x27;),
+(&#x27;9D&#x27;, &#x27;aisle&#x27;),
+(&#x27;15A&#x27;, &#x27;window&#x27;);
+
+INSERT INTO luggage VALUES
+(1, 1, 23.5),
+(2, 2, 18.0),
+(3, 3, 30.1),
+(4, 4, 12.7),
+(5, 5, 22.0);
+
+INSERT INTO crew VALUES
+(1, &#x27;Sarah&#x27;,  &#x27;Flight Attendant&#x27;),
+(2, &#x27;James&#x27;,  &#x27;Co-Pilot&#x27;),
+(3, &#x27;Maria&#x27;,  &#x27;Flight Attendant&#x27;),
+(4, &#x27;Tom&#x27;,    &#x27;Ground Staff&#x27;),
+(5, &#x27;Elena&#x27;,  &#x27;Purser&#x27;);
+
+INSERT INTO duty_assignments VALUES
+(1, 1, &#x27;Cabin safety check&#x27;),
+(2, 2, &#x27;Pre-flight instruments&#x27;),
+(3, 5, &#x27;Passenger boarding&#x27;);
+
+INSERT INTO meal_options VALUES
+(1, &#x27;Grilled Chicken&#x27;,  &#x27;Main&#x27;),
+(2, &#x27;Pasta Primavera&#x27;,  &#x27;Main&#x27;),
+(3, &#x27;Quinoa Salad&#x27;,     &#x27;Main&#x27;),
+(4, &#x27;Fruit Cup&#x27;,        &#x27;Side&#x27;),
+(5, &#x27;Vegan Wrap&#x27;,       &#x27;Main&#x27;);
+
+INSERT INTO meal_orders VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 1),
+(4, 4, 4),
+(5, 5, 2);</initial-sql-script>
 </game>
